@@ -21,8 +21,9 @@ export class AuthService {
   constructor() { }
 
   build_login_link(callbackPath = '') {
+    debugger
     let link = 'https://';
-    link += this.url + '.auth0.com';
+    link += this.url;
     link += '/authorize?';
     link += 'audience=' + this.audience + '&';
     link += 'response_type=token&';
@@ -31,8 +32,19 @@ export class AuthService {
     return link;
   }
 
+  build_logout_link(callbackPath = '') {
+    debugger
+    let link = 'https://';
+    link += this.url;
+    link += '/v2/logout?';
+    link += 'client_id=' + this.clientId + '&';
+    link += 'returnTo=' + this.callbackURL + callbackPath;
+    return link;
+  }
+
   // invoked in app.component on load
   check_token_fragment() {
+    debugger
     // parse the fragment
     const fragment = window.location.hash.substr(1).split('&')[0].split('=');
     // check if the fragment includes the access token
@@ -45,6 +57,7 @@ export class AuthService {
   }
 
   set_jwt() {
+    debugger
     localStorage.setItem(JWTS_LOCAL_KEY, this.token);
     if (this.token) {
       this.decodeJWT(this.token);
@@ -52,6 +65,7 @@ export class AuthService {
   }
 
   load_jwts() {
+    debugger
     this.token = localStorage.getItem(JWTS_LOCAL_KEY) || null;
     if (this.token) {
       this.decodeJWT(this.token);
@@ -59,16 +73,19 @@ export class AuthService {
   }
 
   activeJWT() {
+    debugger
     return this.token;
   }
 
   decodeJWT(token: string) {
+    debugger
     const jwtservice = new JwtHelperService();
     this.payload = jwtservice.decodeToken(token);
     return this.payload;
   }
 
   logout() {
+    debugger
     this.token = '';
     this.payload = null;
     this.set_jwt();

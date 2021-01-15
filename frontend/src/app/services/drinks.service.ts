@@ -8,8 +8,8 @@ export interface Drink {
   id: number;
   title: string;
   recipe: Array<{
-          name: string,
           color: string,
+          name: string,
           parts: number
         }>;
 }
